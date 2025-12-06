@@ -1,6 +1,8 @@
 from Settings import *
 import Player as P
-import Follower as F
+import Follower as  F
+import GameLoop
+
 
 #Classes
 #--------------------------------------------------------------------------------
@@ -22,19 +24,12 @@ class Apple(pygame.sprite.Sprite):
             for i in range(2):
                 followers.append(F.Follower(allsprites,followers[x].pos))
 
-#Functions
-# ---------------------------------------------------------------------------------        
-def displayScore():
-    score = player.points
-    textSurf = font.render(str(score),True, (30,30,30))
-    textrect = textSurf.get_frect(center = (w_Width/2 , w_Height/2))
-    displaySurf.blit(textSurf,textrect)
-
 #Setup
 #----------------------------------------------------------------------------------
 pygame.init()
 
 appleSound = pygame.mixer.Sound('Apple.wav')
+
 clock = pygame.time.Clock()
 running = True
 
@@ -56,24 +51,12 @@ while running:
 
     displaySurf.fill('black')
 
-    #updating and moving "followers"
-    for x in range(len(followers)):
-        y = x - 1
-        s = 0.015
-        
-        if player.pos != pygame.math.Vector2(player.rect.center):
-            if x > 0: 
-                if followers[x] != player and player.move == False:
-                    followers[x].rect.center = followers[y].pos
-                if player.move ==True:
-                    followers[x].pos = followers[x].rect.center
-                if x > 2:
-                    if followers[x].rect.colliderect(player.rect):
-                        running = False
-           
+    GameLoop.gameloop(player,followers)
     #update display
-    displayScore()
+    GameLoop.displayScore(player,font)
     allsprites.update(dt)
     pygame.display.update()
+    if player.colour == 'red':
+        running = False
 
 pygame.quit()

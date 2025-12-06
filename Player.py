@@ -11,6 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.pos = pygame.math.Vector2(self.rect.center) 
         self.timer = 0
         self.move = False
+        self.colour = 'white'
 
     def getInputs(self):
         self.keys = pygame.key.get_pressed()
@@ -50,6 +51,6 @@ class Player(pygame.sprite.Sprite):
             self.rect.bottom = 0
 
     def update(self, dt):
-        pygame.draw.rect(displaySurf, 'white', self.rect,0,10)
+        pygame.draw.rect(displaySurf, self.colour, self.rect,0,10)
         self.getInputs()
         self.movement()
