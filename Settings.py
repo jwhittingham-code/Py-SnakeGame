@@ -1,10 +1,17 @@
 import pygame
 import random
+from enum import Enum,auto
 
+
+class GameState(Enum):
+    MainMenu = auto()
+    Play = auto()
+    GameOver = auto()
+#--------------------------------------------------------------------
 def quitPython():
     running = False
     pygame.quit()
-
+#--------------------------------------------------------------------
 w_Width,w_Height = 500, 500
 running = True
 displaySurf = pygame.display.set_mode((w_Width,w_Height))

@@ -26,7 +26,7 @@ class Apple(pygame.sprite.Sprite):
 #Setup
 #----------------------------------------------------------------------------------
 pygame.init()
-
+state = GameState.Play
 appleSound = pygame.mixer.Sound('Apple.wav')
 
 clock = pygame.time.Clock()
@@ -49,11 +49,21 @@ while running:
 
     displaySurf.fill('black')
 
-    GameLoop.gameloop(player,followers)
-    #update display
-    GameLoop.displayScore(player,font)
-    allsprites.update(dt)
-    pygame.display.update()
-    if player.collide == True:
-        quitPython()
+    match state:
+        case GameState.MainMenu:
+            pass
+        case GameState.Play:
+            GameLoop.gameloop(player,followers)
+            #update display
+            GameLoop.displayScore(player,font)
+            allsprites.update(dt)
+            if player.collide == True:
+                state = GameState.GameOver
+        
 
+        case GameState.GameOver:
+            quitPython()
+        case _:
+            quitPython()
+    pygame.display.update()
+    
