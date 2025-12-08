@@ -23,7 +23,6 @@ class Apple(pygame.sprite.Sprite):
             x = len(followers) -1
             for i in range(2):
                 followers.append(F.Follower(allsprites,followers[x].pos))
-
 #Setup
 #----------------------------------------------------------------------------------
 pygame.init()
@@ -31,7 +30,7 @@ pygame.init()
 appleSound = pygame.mixer.Sound('Apple.wav')
 
 clock = pygame.time.Clock()
-running = True
+
 
 allsprites = pygame.sprite.Group()
 player = P.Player(allsprites)
@@ -39,7 +38,6 @@ Apple(allsprites)
 
 font =pygame.font.Font(None, 250)
 followers = [player,F.Follower(allsprites , (player.rect.centerx, player.rect.centery )),F.Follower(allsprites, (player.rect.centerx,player.rect.centery ))]
-points = []
 
 #Game loop
 #-----------------------------------------------------------------------------------
@@ -47,7 +45,7 @@ while running:
     dt = clock.tick() / 1000
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            quitPython()
 
     displaySurf.fill('black')
 
@@ -56,7 +54,6 @@ while running:
     GameLoop.displayScore(player,font)
     allsprites.update(dt)
     pygame.display.update()
-    if player.colour == 'red':
-        running = False
+    if player.collide == True:
+        quitPython()
 
-pygame.quit()
