@@ -2,6 +2,7 @@ from Settings import *
 import Player as P
 import Follower as  F
 import GameLoop
+from Menu import menu
 
 
 #Classes
@@ -26,7 +27,7 @@ class Apple(pygame.sprite.Sprite):
 #Setup
 #----------------------------------------------------------------------------------
 pygame.init()
-state = GameState.Play
+
 appleSound = pygame.mixer.Sound('Apple.wav')
 
 clock = pygame.time.Clock()
@@ -51,8 +52,9 @@ while running:
 
     match state:
         case GameState.MainMenu:
-            pass
+            state = menu(font)
         case GameState.Play:
+
             GameLoop.gameloop(player,followers)
             #update display
             GameLoop.displayScore(player,font)
@@ -66,4 +68,5 @@ while running:
         case _:
             quitPython()
     pygame.display.update()
+    print(state)
     
