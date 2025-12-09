@@ -2,7 +2,7 @@ from Settings import *
 import Player as P
 import Follower as  F
 import GameLoop
-from Menu import menu
+import Menu
 
 
 #Classes
@@ -38,6 +38,10 @@ player = P.Player(allsprites)
 Apple(allsprites)
 
 font =pygame.font.Font(None, 250)
+test =font.render("test",True,"white")
+
+#menuState = MenuSelect.Start
+menuFont = pygame.font.Font(None, 30)
 followers = [player,F.Follower(allsprites , (player.rect.centerx, player.rect.centery )),F.Follower(allsprites, (player.rect.centerx,player.rect.centery ))]
 
 #Game loop
@@ -46,13 +50,14 @@ while running:
     dt = clock.tick() / 1000
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            quitPython()
+            pygame.quit()
 
     displaySurf.fill('black')
-
+    
     match state:
         case GameState.MainMenu:
-            state = menu(font)
+           state = Menu.menu(font,menuFont)
+        
         case GameState.Play:
 
             GameLoop.gameloop(player,followers)
@@ -70,3 +75,4 @@ while running:
     pygame.display.update()
     print(state)
     
+quitPython()

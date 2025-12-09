@@ -8,10 +8,14 @@ class GameState(Enum):
     Play = auto()
     GameOver = auto()
 #--------------------------------------------------------------------
+
+
+
 def quitPython():
-    running = False
     pygame.quit()
 #--------------------------------------------------------------------
+
+
 w_Width,w_Height = 500, 500
 global state
 state = GameState.MainMenu
