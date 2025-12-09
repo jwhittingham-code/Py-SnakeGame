@@ -40,8 +40,8 @@ Apple(allsprites)
 font =pygame.font.Font(None, 250)
 test =font.render("test",True,"white")
 
-#menuState = MenuSelect.Start
 menuFont = pygame.font.Font(None, 30)
+menuTitleFont = pygame.font.Font(None, 100)
 followers = [player,F.Follower(allsprites , (player.rect.centerx, player.rect.centery )),F.Follower(allsprites, (player.rect.centerx,player.rect.centery ))]
 
 #Game loop
@@ -56,23 +56,28 @@ while running:
     
     match state:
         case GameState.MainMenu:
-           state = Menu.menu(font,menuFont)
+           state = Menu.menu(menuTitleFont,menuFont)
         
         case GameState.Play:
 
             GameLoop.gameloop(player,followers)
-            #update display
             GameLoop.displayScore(player,font)
             allsprites.update(dt)
+            
             if player.collide == True:
                 state = GameState.GameOver
-        
+            key = pygame.key.get_just_pressed()
+            if key[pygame.K_ESCAPE]:
+                state = GameState.MainMenu
 
+           
+        
         case GameState.GameOver:
             quitPython()
         case _:
             quitPython()
+    
     pygame.display.update()
-    print(state)
+    
     
 quitPython()
