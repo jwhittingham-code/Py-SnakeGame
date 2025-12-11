@@ -45,6 +45,8 @@ menuFont = pygame.font.Font(None, 30)
 menuTitleFont = pygame.font.Font(None, 100)
 followers = [player,F.Follower(allsprites , (player.rect.centerx, player.rect.centery )),F.Follower(allsprites, (player.rect.centerx,player.rect.centery ))]
 
+highscore = 0 
+
 #Game loop
 #-----------------------------------------------------------------------------------
 while running:
@@ -57,7 +59,7 @@ while running:
     
     match state:
         case GameState.MainMenu:
-           state = Menu.menu(menuTitleFont,menuFont,appleSound,selectSound)
+           state = Menu.menu(menuTitleFont,menuFont,appleSound,selectSound,highscore)
         
         case GameState.Play:
 
@@ -66,7 +68,17 @@ while running:
             allsprites.update(dt)
             
             if player.collide == True:
-                state = GameState.GameOver
+                state = GameState.MainMenu
+                if player.points > highscore:
+                    highscore = player.points
+                for i in followers:
+                        i.kill()
+                player = P.Player(allsprites)        
+                followers = [player,F.Follower(allsprites , (player.rect.centerx, player.rect.centery )),F.Follower(allsprites, (player.rect.centerx,player.rect.centery ))]
+               
+
+
+
             key = pygame.key.get_just_pressed()
             if key[pygame.K_ESCAPE]:
                 state = GameState.MainMenu
@@ -79,6 +91,6 @@ while running:
             quitPython()
     
     pygame.display.update()
-    
+    print(highscore)
     
 quitPython()

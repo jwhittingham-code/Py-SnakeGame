@@ -31,4 +31,5 @@ def gameloop(player, followers):
                     if followers[x].rect.colliderect(player.rect):
                         player.collide = True
                         player.colour = 'red'
+                        
   

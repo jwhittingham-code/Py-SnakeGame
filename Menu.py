@@ -10,7 +10,7 @@ menuState = MenuSelect.Start
 
 #---------------------------------------------------------------
 
-def menu(font,font2,moveSound,selectSound):
+def menu(font,font2,moveSound,selectSound,highscore):
     
     colourSelect = "white"
     colourOther = (100,100,100)
@@ -18,7 +18,7 @@ def menu(font,font2,moveSound,selectSound):
 
     
     textsurf = font.render("Py-Snake",True,(30,30,30))
-    textrect = textsurf.get_frect(center = (w_Width/2 , w_Height/3))
+    textrect = textsurf.get_frect(center = (w_Width/2 , w_Height/3 - 50))
     
     
 
@@ -32,12 +32,16 @@ def menu(font,font2,moveSound,selectSound):
             exitColour = colourSelect
     
     starttextsurf = font2.render("play",True,startColour)
-    starttextrect = starttextsurf.get_frect(center = (w_Width/2,w_Height/2 + 100))
+    starttextrect = starttextsurf.get_frect(center = (w_Width/2,w_Height/2 + 25))
     exittextsurf = font2.render("exit",True,exitColour)
-    exittextrect = exittextsurf.get_frect(center =(w_Width/2, w_Height/2 + 150))
+    exittextrect = exittextsurf.get_frect(center =(w_Width/2, w_Height/2 + 75))
     
+    hiscoretextsurf = font2.render(f"High Score: {highscore}",True,"white")
+    hiscoretextrect = hiscoretextsurf.get_frect(center =(w_Width/2, w_Height/2 + 200))
+
+
     displaySurf.blit(textsurf,textrect)
-    displaySurf.blits([(starttextsurf,starttextrect),(exittextsurf,exittextrect)])
+    displaySurf.blits([(starttextsurf,starttextrect),(exittextsurf,exittextrect),(hiscoretextsurf,hiscoretextrect)])
     
     keyinput = pygame.key.get_just_pressed()
     if keyinput[pygame.K_SPACE]or keyinput[pygame.K_RETURN]:
