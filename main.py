@@ -29,6 +29,7 @@ class Apple(pygame.sprite.Sprite):
 pygame.init()
 
 appleSound = pygame.mixer.Sound('Apple.wav')
+selectSound = pygame.mixer.Sound('MenuSelect.wav')
 
 clock = pygame.time.Clock()
 
@@ -56,7 +57,7 @@ while running:
     
     match state:
         case GameState.MainMenu:
-           state = Menu.menu(menuTitleFont,menuFont)
+           state = Menu.menu(menuTitleFont,menuFont,appleSound,selectSound)
         
         case GameState.Play:
 

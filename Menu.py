@@ -10,7 +10,7 @@ menuState = MenuSelect.Start
 
 #---------------------------------------------------------------
 
-def menu(font,font2):
+def menu(font,font2,moveSound,selectSound):
     
     colourSelect = "white"
     colourOther = (100,100,100)
@@ -41,14 +41,14 @@ def menu(font,font2):
     
     keyinput = pygame.key.get_just_pressed()
     if keyinput[pygame.K_SPACE]or keyinput[pygame.K_RETURN]:
-        
+        selectSound.play()
         if menuState == MenuSelect.Start:
             return GameState.Play
         elif menuState == MenuSelect.Exit:
             return GameState.GameOver
     
     elif keyinput[pygame.K_DOWN] or keyinput[pygame.K_UP]:
-        
+        moveSound.play()
         match menuState:
             case MenuSelect.Start:
                 menuState = MenuSelect.Exit
