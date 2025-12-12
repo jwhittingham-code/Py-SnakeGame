@@ -3,7 +3,7 @@ import Player as P
 import Follower as  F
 import GameLoop
 import Menu
-
+import json
 
 #Classes
 #--------------------------------------------------------------------------------
@@ -25,6 +25,12 @@ class Apple(pygame.sprite.Sprite):
             for i in range(2):
                 followers.append(F.Follower(allsprites,followers[x].pos))
 #Setup
+
+def quitPython():
+    jfile["score"] = highscore
+    with open("HighScore.json","w") as file:
+        json.dump(jfile, file)
+    pygame.quit()
 #----------------------------------------------------------------------------------
 pygame.init()
 
@@ -44,8 +50,13 @@ test =font.render("test",True,"white")
 menuFont = pygame.font.Font(None, 30)
 menuTitleFont = pygame.font.Font(None, 100)
 followers = [player,F.Follower(allsprites , (player.rect.centerx, player.rect.centery )),F.Follower(allsprites, (player.rect.centerx,player.rect.centery ))]
-
-highscore = 0 
+jfile = {}
+try:
+    with open("HighScore.json","r") as file:
+        jfile = json.load(file)
+    highscore = jfile["score"]
+except:
+    highscore = 0 
 
 #Game loop
 #-----------------------------------------------------------------------------------
@@ -53,7 +64,7 @@ while running:
     dt = clock.tick() / 1000
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
+            quitPython
 
     displaySurf.fill('black')
     
